@@ -6,21 +6,46 @@ const chromedriver = require("chromedriver");
 const driver = new Builder().withCapabilities(Capabilities.chrome()).build(); 
 
 class Employees {
+    name: string;
+    phone: number;
+    title: string;
+    constructor(name: string, phone: number, title: string) {
+      this.name = name;
+      this.phone = phone;
+      this.title = title;
+    };
   // Write a class that holds the name, phone, and title for the employee.
 }; 
 
 let employees: Array<Employees> = [
+  new Employees('Sophia Petrillo', 1111111111, 'Funny Golden Girl'),
+  new Employees('Dorothy Zbornak', 2222222222, 'Reasonable Golden Girl'),
+  new Employees('Blanche Devereaux', 3333333333, 'slutty Golden Girl'),
+  new Employees('Rose Nylund', 4444444444, 'Dumb Golden Girl')
   //Create an array of four employees using your class. 
-]
+];
 
-const addEmployee: By = By.//fill in the blank
-const newEmployee: By = By.// fill in the blank
-const nameInput: By = By. // fill in the blank
-const phoneInput: By = By. // fill in the blank
-const titleInput: By = By. // fill in the blank
-const saveBtn: By = By. // fill in the blank 
+employees.forEach((employees) => {
+  console.log(`new employees info ${employees.name} ${employees.phone} ${employees.title}`);
+});
 
-let myFunc = async (employees) => {
+const addEmployee: By = By.name('addEmployee')
+const newEmployee: By = By.xpath('//li[text() = "New Employee"]')
+const nameInput: By = By.name('nameEntry')
+const phoneInput: By = By.name('phoneEntry')
+const titleInput: By = By.name('titleEntry')
+const saveBtn: By = By.id('saveBtn') 
+
+let myFunc = async(employees) => {
+  await driver.findElement(addEmployee).click();
+  await driver.findElement(newEmployee).click();
+  await driver.findElement(nameInput).clear();
+  await driver.findElement(nameInput).sendKeys(employees.name);
+  await driver.findElement(phoneInput).clear();
+  await driver.findElement(phoneInput).sendKeys(employees.phone);
+  await driver.findElement(titleInput).clear();
+  await driver.findElement(titleInput).sendKeys(employees.title);
+  await driver.findElement(saveBtn).click();
    //Create a function to add an employee.
 }; 
 
